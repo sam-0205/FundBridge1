@@ -1,5 +1,4 @@
 "use server"
-
 import Razorpay from "razorpay"
 import Payment from "@/models/Payment"
 import connectDB from "@/db/connectDb"
@@ -28,7 +27,7 @@ export const initiate = async (amount, to_username, paymentform) => {
     }
 
     let x = await instance.orders.create(options)
-
+    console.log(x);
     await Payment.create({oid: x.id, amount: amount/100, to_user: to_username, name: paymentform.name, message: paymentform.message})
 
     return x
@@ -37,15 +36,25 @@ export const initiate = async (amount, to_username, paymentform) => {
 export const fetchuser = async (username) => {
     await connectDB()
     let u = await User.findOne({username: username})
+    // console.log(u);
     let user = u.toObject({flattenObjectIds: true})
+    // console.log(user);
     return user;
 }
 
 export const fetchpayments = async (username) => {
     await connectDB()
-    let p = await Payment.find({to_user: username, done: true}).sort({amount: -1}).limit(6).lean()
+    let p = await Payment.find({to_user: username, done: true}).sort({amount: -1}).lean()
+    p = p.map(payment => ({
+        ...payment,
+        _id: payment._id.toString(),  // Convert ObjectId to string
+        createdAt: payment.createdAt.toISOString(),  // Convert Date to ISO string
+        updateddAt: payment.updateddAt.toISOString()  // Convert Date to ISO string
+      }));
     return p;
 }
+
+
 
 export const updateProfile =async (data, oldusername) => {
     await connectDB()

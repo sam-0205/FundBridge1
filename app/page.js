@@ -3,7 +3,6 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-
     <>
       <div className="flex flex-col gap-4 justify-center items-center text-white h-[44vh] ">
         <div className="font-bold text-3xl flex gap-2 justify-center items-center">
@@ -30,17 +29,17 @@ export default function Home() {
           <div className="item flex flex-col items-center">
             <img src="group.gif" className="bg-slate-400 rounded-full p-2" width={88} alt="gif" />
             <p className="font-bold">Fund Your Projects</p>
-            <p className="text-center">Your fans are available for you</p>
+            <p className="text-center">Your loyal fans stand by you, always.</p>
           </div>
           <div className="item flex flex-col items-center">
             <img src="coin.gif" className="bg-slate-400 rounded-full p-2" width={88} alt="gif" />
             <p className="font-bold">Fund Your Projects</p>
-            <p className="text-center">Your fans are available for you</p>
+            <p className="text-center">Your loyal fans stand by you, always.</p>
           </div>
           <div className="item flex flex-col items-center">
             <img src="man.gif" className="bg-slate-400 rounded-full p-2" width={88} alt="gif" />
             <p className="font-bold">Fund Your Projects</p>
-            <p className="text-center">Your fans are available for you</p>
+            <p className="text-center">Your loyal fans stand by you, always.</p>
           </div>
 
         </div>
@@ -53,17 +52,17 @@ export default function Home() {
           <div className="item flex flex-col items-center">
             <img src="group.gif" className="bg-slate-400 rounded-full p-2" width={88} alt="gif" />
             <p className="font-bold">Fund Your Projects</p>
-            <p className="text-center">Your fans are available for you</p>
+            <p className="text-center">Your loyal fans stand by you, always.</p>
           </div>
           <div className="item flex flex-col items-center">
             <img src="coin.gif" className="bg-slate-400 rounded-full p-2" width={88} alt="gif" />
             <p className="font-bold">Fund Your Projects</p>
-            <p className="text-center">Your fans are available for you</p>
+            <p className="text-center">Your loyal fans stand by you, always.</p>
           </div>
           <div className="item flex flex-col items-center">
             <img src="man.gif" className="bg-slate-400 rounded-full p-2" width={88} alt="gif" />
             <p className="font-bold">Fund Your Projects</p>
-            <p className="text-center">Your fans are available for you</p>
+            <p className="text-center">Your loyal fans stand by you, always.</p>
           </div>
 
         </div>

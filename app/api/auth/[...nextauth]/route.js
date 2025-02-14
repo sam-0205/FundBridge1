@@ -13,25 +13,20 @@ export const authoptions = NextAuth({
   ],
   callbacks: {
     async signIn({ user, account }) {
+      
       if (account.provider === "github") {
         try {
           await connectDB();
 
           const currentUser = await User.findOne({ email: user.email });
-
+          console.log(currentUser)
           if (!currentUser) {
             const newUser = await User.create({
               email: user.email,
               username: user.email.split("@")[0],
               name: user.name || "Default Name",
-              // cr: "Default CR",
             });
-
-            user.name = newUser.username;
-          } else {
-            user.name = currentUser.username;
-          }
-
+          } 
           return true;
         } catch (error) {
           console.error("Error in signIn callback:", error);
@@ -42,9 +37,9 @@ export const authoptions = NextAuth({
     async session({ session }) {
       try {
         await connectDB();
-
+        // console.log(session.user)
         const dbUser = await User.findOne({ email: session.user.email });
-
+        // console.log(dbUser)
         if (dbUser) {
           session.user.name = dbUser.username;
         }

@@ -6,7 +6,7 @@ import User from "@/models/User"
 
 export default async function Username({ params }) {
     const username = (await params).username
-
+    
     const checkuser = async ()=>{
         
         await connectDB()
@@ -23,6 +23,6 @@ export default async function Username({ params }) {
 
 export async function generateMetadata({ params }) {
     return {
-      title: `${params.username} - FundBridge`,
+      title: `${(await params).username} - FundBridge`,
     }
-  }
+}

@@ -7,6 +7,7 @@ import { useState } from 'react'
 
 const Navbar = () => {
     const { data: session } = useSession()
+    
     const [showdropdown, setshowdropdown] = useState(false)
     return (
         <nav className='bg-gray-700 shadow-lg text-white flex justify-between px-2 py-4 pt-5'>

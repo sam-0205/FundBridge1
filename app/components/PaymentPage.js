@@ -1,11 +1,12 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import Script from 'next/script'
-import { initiate, fetchuser, fetchpayments } from '@/actions/useractions'
+import { initiate, fetchuser, fetchpayments,  } from '@/actions/useractions'
 import { useSession } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/router'
 import { notFound } from 'next/navigation'
+import { Input } from 'postcss'
 
 
 const PaymentPage = ({ username }) => {
@@ -14,17 +15,12 @@ const PaymentPage = ({ username }) => {
     const [paymentform, setpaymentform] = useState({ name: "", message: "", amount: "" })
     const [currentUser, setcurrentUser] = useState({})
     const [payments, setpayments] = useState([])
-    // const router = useRouter()
-    // const searchparams = useSearchParams()
+    
 
     useEffect(() => {
         getdata()
     }, [])
-    // useEffect(()=>{
-    //     if(searchparams.get("paymentdone")=="true"){
-    //         router.push(`/${username}`)
-    //     }
-    // })
+
 
     const handleChange = (e) => {
         setpaymentform({ ...paymentform, [e.target.name]: e.target.value })
@@ -33,9 +29,8 @@ const PaymentPage = ({ username }) => {
     const getdata = async (params) => {
         let u = await fetchuser(username)
         setcurrentUser(u)
-        let dbpayment = await fetchpayments(username)
+        let dbpayment = await fetchpayments(username)     
         setpayments(dbpayment)
-        console.log(u, dbpayment)
     }
     const pay = async (amount) => {
         let a = await initiate(amount, username, paymentform)
@@ -93,11 +88,11 @@ const PaymentPage = ({ username }) => {
                         <h2 className="text-lg font-bold text-center">Suppoters</h2>
                         <ul>
                             {payments.length==0 &&<li> No payments yet</li>}
-                            {payments.map((p, i) => {
-                                return <li className="my-2 flex items-center gap-2">
-                                    <img className="rounded-full" src="user.jpg" alt="user.jpg" width={25} height={25} />
-                                    {p.name} donated <span className="font-bold">₹{p.amount}</span> with a message {p.message}
-                                </li>
+                            {payments.slice(0, 6).map((p, i) => {
+                                return <li key={i} className="my-2 flex items-center gap-2">
+                                <img className="rounded-full" src="user.jpg" alt="user" width={25} height={25} />
+                                {p.name} donated <span className="font-bold">₹{p.amount}</span> with a message: {p.message}
+                              </li>
                             })}
 
 
@@ -111,7 +106,8 @@ const PaymentPage = ({ username }) => {
                         </div>
                         <div className="flex gap-2 m-2">
                             <input onChange={handleChange} value={paymentform.amount} name='amount' type="text" className="w-full p-3 rounded-lg bg-slate-800" placeholder="Enter Amount" />
-                            <button onClick={()=>pay(Number.parseInt(paymentform.amount)*100)} type="button" className="text-white bg-gradient-to-r from-blue-800 via-blue-900 to-black hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-800 dark:focus:ring-black font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Pay</button>
+                            <button onClick={()=>pay(Number.parseInt(paymentform.amount)*100)} type="button" className="text-white bg-gradient-to-r from-blue-800 via-blue-900 to-black hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-800 dark:focus:ring-black font-medium rounded-lg text-sm px-5 py-2.5 
+                            text-center me-2 mb-2 disabled:from-white" disabled={paymentform.name?.length<3 || paymentform.message?.length<4 || paymentform.amount?.length<1}>Pay</button>
                         </div>
                         <div className="flex gap-2 m-2 mt-5 ">
                             <button className="bg-slate-800 p-3 rounded-lg" onClick={() => pay(1000)}>Pay ₹10</button>
@@ -124,5 +120,6 @@ const PaymentPage = ({ username }) => {
         </>
     )
 }
-
 export default PaymentPage
+
+

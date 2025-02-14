@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "better-auth": "^1.1.7",
     "dotenv": "^16.4.7",
     "mongoose": "^8.9.3",
     "next": "15.1.2",

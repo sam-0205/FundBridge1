@@ -11,8 +11,12 @@ const page = () => {
     </>
     
 }
-
 export default page
 export const metadata = {
     title: "Dashboard - FundBridge",
   }
+
+
+import React from 'react'
+
+

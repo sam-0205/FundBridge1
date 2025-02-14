@@ -5,20 +5,24 @@ import { useRouter } from 'next/navigation'
 import { updateProfile, fetchuser } from '@/actions/useractions'
 
 const Dashboard = () => {
-    const { data: session } = useSession()
+    const { data: session, status } = useSession()
+  
     const [form, setform] = useState({})
     const router = useRouter()
     useEffect(() => {
-        getData()
-        if (!(session)) {
+        if (status === "loading") return  // Wait for session to load
+        if (!session) {
             router.push('/login')
+        } else {
+            getData()
         }
-    }, [router, session])
-
+    }, [session, status, router])
 
     const getData = async () => {
-        let u = await fetchuser(session.user.name)
-        setform(u)
+        if (session?.user?.name) {
+            let u = await fetchuser(session.user.name)
+            setform(u)
+        }
     }
 
     const handleChange = (e) => {
