@@ -3,6 +3,9 @@ import GitHubProvider from "next-auth/providers/github";
 import User from "@/models/User";
 import connectDB from "@/db/connectDb";
 
+
+console.log("GITHUB_SECRET:", process.env.GITHUB_SECRET);
+
 export const authoptions = NextAuth({
   providers: [
     GitHubProvider({
