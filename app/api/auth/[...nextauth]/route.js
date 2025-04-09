@@ -1,10 +1,10 @@
 import NextAuth from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 import User from "@/models/User";
 import connectDB from "@/db/connectDb";
 
-
-console.log("GITHUB_SECRET:", process.env.GITHUB_SECRET);
+// console.log(process.env.GOOGLE_ID)
 
 export const authoptions = NextAuth({
   providers: [
@@ -13,11 +13,16 @@ export const authoptions = NextAuth({
       clientSecret: process.env.GITHUB_SECRET,
       scope: "read:user,user:email",
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
+      scope: "read:user, user:email",
+    })
   ],
   callbacks: {
     async signIn({ user, account }) {
       
-      if (account.provider === "github") {
+      if (account.provider === "github" || account.provider == "google") {
         try {
           await connectDB();
 
